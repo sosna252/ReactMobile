@@ -43,7 +43,7 @@ export default class BookingDetails extends React.Component {
     }
 
     return (
-        <ScrollView>
+        <ScrollView style={{backgroundColor: "whitesmoke" }}>
           <Text style={styles.textViewTitle}>{booking.title}</Text>
           <Image source={{ uri: "https://blobstorageproject.blob.core.windows.net/applications/z21258528V,Aranzacja-malego-mieszkania.jpg?fbclid=IwAR1gdmtLViRDRfs5oFHo2deDllQLImJYsorF7Sn_1WR_bD2KTVDqlZevX6c"}} style={styles.imageView} />
           
@@ -52,8 +52,8 @@ export default class BookingDetails extends React.Component {
                 <Text style={styles.textViewTitle}>Details</Text>
                 <Text style={styles.textView}>Guests: {booking.people}/{details.people}</Text>
                 <Text style={styles.textView}>Price: {booking.price}</Text>
-                <Text style={styles.textView}>DateFrom: {start}</Text>
-                <Text style={styles.textView}>DateTo: {end}</Text>
+                <Text style={styles.textView}>Date From: {start}</Text>
+                <Text style={styles.textView}>Date To: {end}</Text>
               </View>
               <View style={{width:"50%"}}>
                 <Text style={styles.textViewTitle}>Wynajmujący</Text>        
@@ -81,7 +81,7 @@ function DateString(date){
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#aaa",
     alignItems: "center",
     justifyContent: "center",
     margin: 5

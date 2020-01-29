@@ -11,8 +11,8 @@ export default function BookingListItem(props) {
   return (
     <TouchableOpacity
       onPress={() => navigate("Details", booking)}
-      style={{flexDirection: "row", marginRight:5}}>
-
+      style={{flexDirection: "row", marginRight:5, backgroundColor:"powderblue",borderRadius:12 }}>
+      
         <Image source={{ uri: "https://blobstorageproject.blob.core.windows.net/applications/z21258528V,Aranzacja-malego-mieszkania.jpg?fbclid=IwAR1gdmtLViRDRfs5oFHo2deDllQLImJYsorF7Sn_1WR_bD2KTVDqlZevX6c"}} style={styles.imageView} />
 
             <View style={{width:"60%", flexDirection: "column"}}> 
