@@ -3,25 +3,64 @@ import { StyleSheet, Text, View,TextInput, Image, Button, AsyncStorage } from 'r
 
 
 class LoginScreen extends React.Component {
-  constructor(props)
-  {
-      super(props);
-      this.state = {
-        login: '',
-        passowrd:''
+    
+      constructor(props){
+        super(props);
+        this.state = { 
+          login: '',
+          password:'',
+          message:''
+        }
+        this.LogIn=this.LogIn.bind(this);
+       
+        
+        this.LoginChanged=this.LoginChanged.bind(this);
+        this.PasswordChanged=this.PasswordChanged.bind(this);
+        }
+
+        static navigationOptions = {
+          headerShown: false
       }
 
 
-    this.LoginChanged=this.LoginChanged.bind(this);
-    this.PasswordChanged=this.PasswordChanged.bind(this);
+      LogIn(){
+       fetch("http://flatlybackend-env.apt77knte5.us-east-1.elasticbeanstalk.com/login",
+        { 
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                login : this.state.login,
+                password : this.state.password
+            })
+          })
+          .then((response) => response.json())
+          .then((responseJson) => {
+            if(responseJson.message)
+            this.setState ({
+              message: responseJson.message
+            })
+            else{
+              AsyncStorage.setItem('SecurityToken', responseJson);
+              this.props.navigation.replace("List");
+            }
+            })
+            .catch((error) => {
+              console.error('Error:', error);
+            })
+          }
+          
+        
+     
 
-  }
+  
 
     async componentDidMount(){
       this.setState ({
         login: await AsyncStorage.getItem('login'),
-        passowrd: await AsyncStorage.getItem('password')
+        password: await AsyncStorage.getItem('password')
       })
+      if(await AsyncStorage.getItem('SecurityToken'))
+        this.props.navigation.replace("List");
     }
 
   async LoginChanged(value) {
@@ -34,7 +73,7 @@ class LoginScreen extends React.Component {
   async PasswordChanged(value) {
     AsyncStorage.setItem('password', value);
     this.setState({
-      passowrd:value
+      password:value
     })
   }
 
@@ -42,10 +81,11 @@ class LoginScreen extends React.Component {
      return (
         <View style={styles.container}>
         <Text>Login</Text><TextInput style={styles.input} value={this.state.login} onChangeText={this.LoginChanged}/>
-        <Text>Password</Text><TextInput style={styles.input} value={this.state.passowrd} onChangeText={this.PasswordChanged}/>
-        <Button title="Login" onPress={()=>this.props.click()}/>
+        <Text>Password</Text><TextInput style={styles.input} value={this.state.password} onChangeText={this.PasswordChanged}/>
+        <Button title="Login" onPress={()=>this.LogIn()}/>
+        <Text style={{color:"red"}}>{this.state.message}</Text>
       </View>
-            );
+    );
     }
 }
 

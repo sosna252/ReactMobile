@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View,TouchableOpacity, Button, FlatList, Image,Picker } from "react-native";
+import { StyleSheet, Text, View,TouchableOpacity, Button, FlatList, Image,Picker, AsyncStorage } from "react-native";
 import BookingListItem from './BookingListItem';
 import Modal from "react-native-simple-modal";
 import DatePicker from 'react-native-datepicker'
@@ -20,13 +20,17 @@ export default class BookingList extends React.Component {
     return{
      title: "Bookings",
       headerRight: () => (
-        <Button
-          onPress={navigation.getParam('openfilters')}
-          title="Filters"
-          color="#aaa"
-          style={{ margin: 5 }}
-          
-          />
+        <TouchableOpacity onPress={()=>
+        {
+            AsyncStorage.removeItem('SecurityToken');
+            navigation.replace("Login");
+        }}><Text>Log Out  </Text></TouchableOpacity>
+        // <Button
+        //   onPress={navigation.getParam('openfilters')}
+        //   title="Filters"
+        //   color="#aaa"
+        //   style={{ margin: 5 }}
+        //   />
       )
     };
   };
@@ -123,9 +127,6 @@ export default class BookingList extends React.Component {
 
     return (
       <View style={styles.container}>
-     
-
-
         <FlatList
           data={bookings}
           style={{backgroundColor: "whitesmoke" }}
