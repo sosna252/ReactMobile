@@ -84,7 +84,7 @@ class LoginScreen extends React.Component {
      return (
         <View style={styles.container}>
         <Text>Login</Text><TextInput style={styles.input} value={this.state.login} onChangeText={this.LoginChanged}/>
-        <Text>Password</Text><TextInput style={styles.input} value={this.state.password} onChangeText={this.PasswordChanged}/>
+        <Text>Password</Text><TextInput style={styles.input} secureTextEntry={true} value={this.state.password} onChangeText={this.PasswordChanged}/>
         <Button title="Login" onPress={()=>this.LogIn()}/>
         <Text style={{color:"red"}}>{this.state.message}</Text>
       </View>
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
       margin: 5
     },
     input:{
-      backgroundColor: "white",
+      backgroundColor: "#F3F8FF",
         height: 30, 
         width: 200,
         borderColor: 'gray', 

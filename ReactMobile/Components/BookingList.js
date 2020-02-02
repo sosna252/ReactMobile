@@ -72,7 +72,6 @@ export default class BookingList extends React.Component {
       .then(bookings => {
 
         var newbookings=this.state.bookings.concat(bookings);
-        //Array.prototype.push.apply(newbookings,bookings);
         
         this.setState({
           isLoadingMore:false,
@@ -159,27 +158,7 @@ export default class BookingList extends React.Component {
           keyExtractor={booking => booking.id}
          
         />
-      
-<Modal
-  offset={this.state.offset}
-  open={this.state.open}
-  modalDidClose={this.modalDidClose}
-  style={{ alignItems: "center" }}>
-    <View>
-      <Text style={{ fontSize: 20, marginBottom: 10, textAlign:"center" }}>Hello world!</Text>
-      <View style={{flexDirection: 'row', margin: 5}}>
-        <Text style={{textAlign:"center",textAlignVertical:"center", width:"50%"}}>From: </Text>
-        <DatePicker style={{width:"50%"}}/> 
-      </View>
-      <View style={{flexDirection: 'row', margin: 5}}>
-        <Text style={{textAlign:"center",textAlignVertical:"center", width:"50%"}}>To: </Text>
-        <DatePicker style={{width:"50%"}}/> 
-      </View>
-      <TouchableOpacity style={{ margin: 5 }} onPress={this.closeModal}>
-        <Text style={{textAlign:"center"}}>Close modal</Text>
-      </TouchableOpacity>
-    </View>
-</Modal>
+    
       </View>
     );
   }
