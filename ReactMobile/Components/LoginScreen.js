@@ -24,6 +24,9 @@ class LoginScreen extends React.Component {
 
 
       LogIn(){
+        this.setState ({
+          message: ''
+        })
        fetch("http://flatlybackend-env.apt77knte5.us-east-1.elasticbeanstalk.com/login",
         { 
             method: 'POST',
@@ -95,12 +98,13 @@ export default LoginScreen
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: "#fff",
+      backgroundColor: "#D8E5FF",
       alignItems: "center",
       justifyContent: "center",
       margin: 5
     },
     input:{
+      backgroundColor: "white",
         height: 30, 
         width: 200,
         borderColor: 'gray', 

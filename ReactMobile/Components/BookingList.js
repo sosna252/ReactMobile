@@ -19,6 +19,9 @@ export default class BookingList extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return{
      title: "Bookings",
+     headerStyle: {
+      backgroundColor: '#4D79D1',
+    },
       headerRight: () => (
         <TouchableOpacity onPress={()=>
         {
@@ -36,11 +39,18 @@ export default class BookingList extends React.Component {
   };
 
 
-  fetchBookings = () => {
+  async fetchBookings(){
     this.setState({ isLoading: true });
-    fetch("https://47046881-67b3-4274-bd55-cb35944b2fdd.mock.pstmn.io/BookingList")
+    const token= await AsyncStorage.getItem('SecurityToken');
+    console.log(token);
+    fetch("http://flatlybackend-env.apt77knte5.us-east-1.elasticbeanstalk.com/user/bookinglist",
+    {
+      method: 'GET',
+      headers: {'securityTokenValue': token},
+    })
       .then(data => data.json())
       .then(bookings => {
+        console.log(bookings);
         this.setState({
           isLoading: false,
           bookings: bookings
@@ -48,11 +58,16 @@ export default class BookingList extends React.Component {
       });
   };
 
-  fetchMore = () => {
+  async fetchMore (){
+    const token= await AsyncStorage.getItem('SecurityToken');
     this.setState({
       isLoadingMore: true
     });
-    fetch("https://47046881-67b3-4274-bd55-cb35944b2fdd.mock.pstmn.io/BookingList")
+    fetch("http://flatlybackend-env.apt77knte5.us-east-1.elasticbeanstalk.com/user/bookinglist",
+    {
+      method: 'GET',
+      headers: {'securityTokenValue': token},
+    })
       .then(data => data.json())
       .then(bookings => {
 
@@ -118,7 +133,7 @@ export default class BookingList extends React.Component {
       return (
         <View style={styles.container}>
           <Text>Bookings Not Found</Text>
-          <Button title="Reload" onPress={()=>fetchBookings()}/>
+          <Button title="Reload" onPress={()=>this.fetchBookings()}/>
         </View>
       );
     }
@@ -129,7 +144,7 @@ export default class BookingList extends React.Component {
       <View style={styles.container}>
         <FlatList
           data={bookings}
-          style={{backgroundColor: "whitesmoke" }}
+          style={{backgroundColor: "#D8E5FF" }}
           refreshing={isLoading}
           onRefresh={() => this.fetchBookings()}
 
@@ -173,7 +188,7 @@ export default class BookingList extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#D8E5FF",
     alignItems: "center",
     justifyContent: "center",
     margin: 5

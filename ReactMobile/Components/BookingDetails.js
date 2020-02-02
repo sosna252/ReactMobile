@@ -1,21 +1,30 @@
 import React from "react";
-import { Text, View, Image, StyleSheet} from "react-native";
+import { Text, View, Image, StyleSheet,AsyncStorage} from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 
 export default class BookingDetails extends React.Component {
   static navigationOptions = {
-    title: "Booking Details"
+    title: "Booking Details",
+    headerStyle: {
+      backgroundColor: '#4D79D1',
+    },
   };
   state = {
     isLoading: false,
     details: []
   };
 
-  fetchDetails = () => {
+  async fetchDetails(){
+    const token= await AsyncStorage.getItem('SecurityToken');
     this.setState({ isLoading: true });
-    fetch("https://47046881-67b3-4274-bd55-cb35944b2fdd.mock.pstmn.io/BookingDetails?Id=8f4c2014-9982-4a9b-9653-131905988b6e&fbclid=IwAR0pF9uaRN0Hxmt6_ldQRouuULSk_waxK485QNFfbhm8vnbAoazCU30WkyA")
+    fetch("http://flatlybackend-env.apt77knte5.us-east-1.elasticbeanstalk.com/bookingdetails/"+this.props.navigation.state.params.id,
+    {
+      method: 'GET',
+      headers: {'securityTokenValue': token},
+    })
       .then(data => data.json())
       .then(details => {
+        console.log(details);
         this.setState({
           isLoading: false,
           details: details
@@ -30,9 +39,7 @@ export default class BookingDetails extends React.Component {
   render() {
     const booking = this.props.navigation.state.params;
     const { isLoading, details } = this.state;
-    var start=DateString(booking.startDate);
-    var end=DateString(booking.endDate);
-    
+    var photourl="http://flatlybackend-env.apt77knte5.us-east-1.elasticbeanstalk.com/itemphoto/"+"114";
   
     if (isLoading) {
       return (
@@ -43,25 +50,26 @@ export default class BookingDetails extends React.Component {
     }
 
     return (
-        <ScrollView style={{backgroundColor: "whitesmoke" }}>
-          <Text style={styles.textViewTitle}>{booking.title}</Text>
-          <Image source={{ uri: "https://blobstorageproject.blob.core.windows.net/applications/z21258528V,Aranzacja-malego-mieszkania.jpg?fbclid=IwAR1gdmtLViRDRfs5oFHo2deDllQLImJYsorF7Sn_1WR_bD2KTVDqlZevX6c"}} style={styles.imageView} />
+        <ScrollView style={{backgroundColor: "#D8E5FF"}}>
+           <Text style={styles.textViewTitle}>{details.title}</Text>
+          <Image source={{ uri: photourl}} style={styles.imageView} />
           
           <View style={{flexDirection: 'row'}}>
               <View style={{width:"50%"}}>
                 <Text style={styles.textViewTitle}>Details</Text>
-                <Text style={styles.textView}>Guests: {booking.people}/{details.people}</Text>
-                <Text style={styles.textView}>Price: {booking.price}</Text>
-                <Text style={styles.textView}>Date From: {start}</Text>
-                <Text style={styles.textView}>Date To: {end}</Text>
+                <Text style={styles.textView}>Guests: {details.people}/{booking.beds}</Text>
+                <Text style={styles.textView}>Price: {details.price}</Text>
+                <Text style={styles.textView}>Date From: {details.start_date}</Text>
+                <Text style={styles.textView}>Date To: {details.end_date}</Text>
               </View>
               <View style={{width:"50%"}}>
                 <Text style={styles.textViewTitle}>Wynajmujący</Text>        
                 <Text style={styles.textView}>Name: {details.name}</Text>
-                <Text style={styles.textView}>Lastame: {details.lastname}</Text>
+                <Text style={styles.textView}>Lastame: {details.last_name}</Text>
                 <Text style={styles.textView}>Email: {details.email}</Text>
               </View>
             </View>
+                <Text style={styles.textView}>Address: {details.country}, {details.city}, {details.address}</Text>
             <Text style={styles.textViewTitle}>Description</Text>
             <Text style={styles.textView}>{details.description}</Text>      
       </ScrollView>
@@ -70,18 +78,11 @@ export default class BookingDetails extends React.Component {
 }
 
 
-function DateString(date){
-    var d=new Date(date);
-    return ("0" + d.getDate()).slice(-2) + "-" + ("0"+(d.getMonth()+1)).slice(-2) + "-" +
-    d.getFullYear(); //+ " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
-};
-
-
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#aaa",
+    backgroundColor: "#D8E5FF",
     alignItems: "center",
     justifyContent: "center",
     margin: 5
