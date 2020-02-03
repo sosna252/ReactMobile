@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
       backgroundColor: "#D8E5FF",
       alignItems: "center",
       justifyContent: "center",
-      margin: 5
+      margin: 0
     },
     input:{
       backgroundColor: "#F3F8FF",
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
         width: 200,
         borderColor: 'gray', 
         borderWidth: 1,
-        margin:5
+        margin: 5
     }
 
 })

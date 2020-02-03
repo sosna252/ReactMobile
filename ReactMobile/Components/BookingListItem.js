@@ -9,7 +9,7 @@ export default function BookingListItem(props) {
   return (
     <TouchableOpacity
       onPress={() => navigate("Details", booking)}
-      style={{flexDirection: "row", marginRight:5, backgroundColor:'#97BAFF',borderRadius:12 }}>
+      style={{flexDirection: "row", marginRight:5, marginLeft:5, backgroundColor:'#97BAFF',borderRadius:12 }}>
       
         <Image source={{ uri: photourl}} style={styles.imageView} />
 

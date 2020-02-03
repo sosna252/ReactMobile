@@ -63,7 +63,7 @@ export default class BookingDetails extends React.Component {
                 <Text style={styles.textView}>Date To: {details.end_date}</Text>
               </View>
               <View style={{width:"50%"}}>
-                <Text style={styles.textViewTitle}>Wynajmujący</Text>        
+                <Text style={styles.textViewTitle}>Tenant</Text>        
                 <Text style={styles.textView}>Name: {details.name}</Text>
                 <Text style={styles.textView}>Lastame: {details.last_name}</Text>
                 <Text style={styles.textView}>Email: {details.email}</Text>

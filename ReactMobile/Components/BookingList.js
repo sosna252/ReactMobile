@@ -91,7 +91,7 @@ export default class BookingList extends React.Component {
         style={{
           height: 3,
           width: "100%",
-          backgroundColor: "whitesmoke"
+          backgroundColor: "#D8E5FF"
         }}
       />
     );
@@ -146,7 +146,7 @@ export default class BookingList extends React.Component {
           style={{backgroundColor: "#D8E5FF" }}
           refreshing={isLoading}
           onRefresh={() => this.fetchBookings()}
-
+         
           //onEndReachedThreshold={0.5}           //paging
           //onEndReached={() => this.fetchMore()}
 
@@ -170,6 +170,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#D8E5FF",
     alignItems: "center",
     justifyContent: "center",
-    margin: 5
+    margin: 0
   }
 });
