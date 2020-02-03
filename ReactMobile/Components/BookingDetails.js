@@ -24,7 +24,7 @@ export default class BookingDetails extends React.Component {
     })
       .then(data => data.json())
       .then(details => {
-        console.log(details);
+        // console.log(details);
         this.setState({
           isLoading: false,
           details: details
@@ -39,7 +39,7 @@ export default class BookingDetails extends React.Component {
   render() {
     const booking = this.props.navigation.state.params;
     const { isLoading, details } = this.state;
-    var photourl="http://flatlybackend-env.apt77knte5.us-east-1.elasticbeanstalk.com/itemphoto/"+"114";
+    var photourl="http://flatlybackend-env.apt77knte5.us-east-1.elasticbeanstalk.com/itemphoto/"+booking.item_id;
   
     if (isLoading) {
       return (

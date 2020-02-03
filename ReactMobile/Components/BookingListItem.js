@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 
 export default function BookingListItem(props) {
   const { booking, navigate } = props;
-  var photourl="http://flatlybackend-env.apt77knte5.us-east-1.elasticbeanstalk.com/itemphoto/"+"114";
+  var photourl="http://flatlybackend-env.apt77knte5.us-east-1.elasticbeanstalk.com/itemphoto/"+booking.item_id;
 
   
   return (

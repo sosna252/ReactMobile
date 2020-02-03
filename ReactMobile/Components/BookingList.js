@@ -42,7 +42,7 @@ export default class BookingList extends React.Component {
   async fetchBookings(){
     this.setState({ isLoading: true });
     const token= await AsyncStorage.getItem('SecurityToken');
-    console.log(token);
+    // console.log(token);
     fetch("http://flatlybackend-env.apt77knte5.us-east-1.elasticbeanstalk.com/user/bookinglist",
     {
       method: 'GET',
@@ -50,7 +50,7 @@ export default class BookingList extends React.Component {
     })
       .then(data => data.json())
       .then(bookings => {
-        console.log(bookings);
+        // console.log(bookings);
         this.setState({
           isLoading: false,
           bookings: bookings
@@ -155,7 +155,7 @@ export default class BookingList extends React.Component {
             <BookingListItem booking={item}  navigate={navigate} />
           )}
           ItemSeparatorComponent={this.FlatListItemSeparator}
-          keyExtractor={booking => booking.id}
+          keyExtractor={booking => booking.id.toString()}
          
         />
     
